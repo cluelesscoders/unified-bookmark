@@ -1,6 +1,7 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { getChildren, normalize, removeDuplicates } from '../utils';
 
 export type profileListType = {
   info_cache ?: {
@@ -28,11 +29,28 @@ export type profileListType = {
   profiles_created?: string
 };
 
+export type bookmarkType = {
+  checksum?: string,
+  roots: {
+    [key: string]: {
+      date_added?: string,
+      date_modified?: string,
+      id?: string,
+      name?: string,
+      type?: string
+    },
+  },
+  version?: number
+}
+
 export default class Chrome {
   platform: string = 'darwin';
   profileList: profileListType = {};
   chromePath: string = '';
   lastActiveProfile: string = '';
+  bookmarkPath: string = '';
+  bookmarksRaw: bookmarkType = {};
+  bookmarks: any = [];
 
   getPlatform() {
     return this.platform;
@@ -91,5 +109,48 @@ export default class Chrome {
     this.lastActiveProfile = (this.profileList && this.profileList.last_used) || '';
 
     return this.lastActiveProfile;
+  }
+
+  async getBookmarkPath(profile: string = '') {
+    await this.getLastActiveProfile();
+    if (profile === '') {
+      profile = this.lastActiveProfile;
+    }
+
+    this.bookmarkPath = `${this.chromePath}${path.sep}${profile}${path.sep}Bookmarks`;
+
+    return this;
+  }
+
+  async getBookmarks() {
+    if (this.bookmarkPath === '') {
+      await this.getBookmarkPath();
+    }
+
+    const localBookmarks = [];
+
+    this.bookmarksRaw = JSON.parse(await fs.readFileSync(this.bookmarkPath, 'utf-8'));
+
+    if (this.bookmarksRaw && this.bookmarksRaw.roots) {
+      Object.keys(this.bookmarksRaw.roots)
+        .filter(k => k !== 'sync_transaction_version')
+        .forEach((key: string) => {
+          const rootObject = this.bookmarksRaw.roots[key];
+          const children = rootObject.children.length > 0 ? getChildren(rootObject.children) : [];
+
+          if (children.length) {
+            children.forEach(child => localBookmarks.push(child));
+          }
+        });
+
+      const newArray = new Array(localBookmarks.length);
+      localBookmarks.forEach((lb, index) => {
+        newArray[index] = normalize(localBookmarks[index]);
+      });
+
+      this.bookmarks = removeDuplicates(newArray, 'url');
+
+      return this.bookmarks;
+    }
   }
 }

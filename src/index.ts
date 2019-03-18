@@ -3,5 +3,9 @@ import Chrome from './browsers/chrome';
 (async() => {
   const chr = new Chrome();
 
-  console.log(await chr.getLastActiveProfile());
+  const d = await chr.getBookmarkPath('Profile 1');
+
+  const bookmarks = await d.getBookmarks();
+
+  console.log(bookmarks);
 })();
