@@ -9,3 +9,10 @@ coverage
 *.log
 
 yarn.lock
+yarn-error.log
+.cache/
+dist/
+dist.crx
+dist.pem
+unified-bookmark-extension-*.zip
+unified-bookmark-*.zip

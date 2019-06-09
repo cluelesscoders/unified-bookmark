@@ -1,0 +1,45 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,500');
+
+body {
+  @apply text-black font-open;
+  @apply m-0 min-h-screen;
+  @apply bg-grey-lightest;
+  font-size: 100%;
+
+  &.dark {
+    @apply bg-black text-white;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-roboto;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+  @apply no-underline;
+}
+
+#container {
+  @apply min-h-full mx-auto;
+  max-width: config('screens.xl');
+
+  .App {
+    @apply min-h-full flex flex-col;
+  }
+}
+
+.rtl {
+  direction: rtl;
+}
