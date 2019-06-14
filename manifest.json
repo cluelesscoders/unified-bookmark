@@ -5,7 +5,7 @@
   "version": "<version>",
   "short_name": "Unified Bookmark Browser Extension",
   "description": "Manage your bookmarks directly from your New Tab page.",
-  "permissions": ["tabs", "identity"],
+  "permissions": ["tabs", "identity", "bookmarks"],
   "background": {
     "scripts": ["background.js"]
   },
