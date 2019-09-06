@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { browser } from './browsers';
+import Test from './components/Test';
+import TestContext from './components/TestContext';
+import { BookmarkProvider } from './context/bookmark-context';
 
-export class App extends React.Component {
+export class App extends Component {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      bookmarks: {},
+    };
+  }
+
   public async componentDidMount() {
     const data = await browser.getBookmarkTree();
-    // tslint:disable-next-line:no-console
-    console.log({ name: 'test', data });
+
+    this.setState({ bookmarks: data });
   }
   public render() {
     return (
-      <div className="App">
-        <p>Testing REACT APP</p>
-      </div>
+      <BookmarkProvider intialState={this.state}>
+        <div className="App">
+          <p>Testing REACT APP</p>
+          <Test />
+          <TestContext />
+        </div>
+      </BookmarkProvider>
     );
   }
 }

@@ -16,7 +16,8 @@
     "no-console": "off",
     "react/prop-types": "off",
     "react/no-deprecated": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-angle-bracket-type-assertion": false
   },
   "env": {
     "es6": true,
