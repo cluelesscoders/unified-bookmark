@@ -1,10 +1,11 @@
 import React from 'react';
-import { getBookmarkTree } from './browsers/chrome';
+import { browser } from './browsers';
 
 export class App extends React.Component {
   public async componentDidMount() {
-    const data = await getBookmarkTree();
-    console.log(data);
+    const data = await browser.getBookmarkTree();
+    // tslint:disable-next-line:no-console
+    console.log({ name: 'test', data });
   }
   public render() {
     return (
