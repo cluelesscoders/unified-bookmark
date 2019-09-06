@@ -1,17 +1,46 @@
-import { chromeTimeParser } from '../../utils';
+export interface BookmarkElement {
+  dateAdded: number;
+  id: string;
+  index: number;
+  parentId: string;
+  title: string;
+  url?: string;
+}
 
-const changeTimeStamps = (data: any) => {
-  return (
+export interface BookmarkChild {
+  children: BookmarkElement[];
+  dateAdded: number;
+  dateGroupModified: number;
+  id: string;
+  index: number;
+  parentId: string;
+  title: string;
+}
+
+export interface BookmarkTree {
+  children: BookmarkChild[];
+  dateAdded: number;
+  id: number;
+  title?: string;
+}
+
+const filterBookmarks = (data: any) => {
+  const result: any =
     data &&
-    data.map((item: any) => {
-      if (item && item.dateAdded) {
-        item.dateAdded = chromeTimeParser(item.dateAdded);
-      }
+    data.map((bookmarkTree: BookmarkTree) => {
+      return (
+        bookmarkTree &&
+        bookmarkTree.children &&
+        bookmarkTree.children.filter(i => i.children.length)
+      );
+    });
 
-      return item;
-    })
-  );
+  return result;
 };
+
+// const getAllBookmarkElement
+// const getAllBookmarkParentNode
+// const getBookmarkTree
 
 const getBookmarkTree = () => {
   return new Promise((resolve, reject) => {
@@ -24,11 +53,9 @@ const getBookmarkTree = () => {
     }
 
     chrome.bookmarks.getTree(data => {
-      const item = changeTimeStamps(data);
-
-      resolve(item);
+      resolve(data);
     });
   });
 };
 
-export { getBookmarkTree };
+export { getBookmarkTree, filterBookmarks };

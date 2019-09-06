@@ -3,6 +3,8 @@ import * as firefox from './firefox';
 
 export interface Browser {
   getBookmarkTree(): [];
+  parseBookmarks: any;
+  filterBookmarks: any;
 }
 
 let browser: Browser = {} as any;

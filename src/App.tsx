@@ -10,9 +10,13 @@ export class App extends Component {
   };
 
   public async componentDidMount() {
-    const data = await browser.getBookmarkTree();
+    let data = await browser.getBookmarkTree();
+    data = browser.filterBookmarks(data);
 
-    this.setState({ bookmarks: data });
+    // tslint:disable-next-line: no-console
+    console.log(data);
+
+    // this.setState({ bookmarks: data });
   }
   public render() {
     return (
