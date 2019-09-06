@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  // BookmarkContextConsumer,
-  withBookmarkContext,
-} from '../context/bookmark-context';
-
-const ConsoleLog = ({ children }: any): any => {
-  // tslint:disable-next-line: no-console
-  console.log(children);
-  return false;
-};
+import { withBookmarkContext } from '../context/bookmark-context';
+import ConsoleLog from './ConsoleLog';
 
 const Test = ({ context }: any) => {
   return <ConsoleLog>{context.bookmarks}</ConsoleLog>;

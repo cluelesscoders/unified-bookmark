@@ -27,4 +27,4 @@ export function withBookmarkContext(Component: any) {
   };
 }
 
-// export const useBookmark = () => useContext(BookmarkContext);
+export const useBookmark = () => useContext(BookmarkContext);

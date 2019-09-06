@@ -5,13 +5,9 @@ import TestContext from './components/TestContext';
 import { BookmarkProvider } from './context/bookmark-context';
 
 export class App extends Component {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      bookmarks: {},
-    };
-  }
+  public state = {
+    bookmarks: {},
+  };
 
   public async componentDidMount() {
     const data = await browser.getBookmarkTree();
@@ -23,8 +19,12 @@ export class App extends Component {
       <BookmarkProvider intialState={this.state}>
         <div className="App">
           <p>Testing REACT APP</p>
-          <Test />
-          <TestContext />
+          {this.state.bookmarks && (
+            <div>
+              <Test />
+              <TestContext />
+            </div>
+          )}
         </div>
       </BookmarkProvider>
     );
