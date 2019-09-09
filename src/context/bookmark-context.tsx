@@ -5,7 +5,7 @@ export interface BookmarkContextInterface {
 }
 
 export const BookmarkContext = React.createContext<BookmarkContextInterface>({
-  bookmarks: {},
+  bookmarks: [],
 });
 
 export const BookmarkContextProvider = BookmarkContext.Provider;

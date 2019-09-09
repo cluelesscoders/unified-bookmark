@@ -20,8 +20,9 @@ export interface BookmarkChild {
 export interface BookmarkTree {
   children: BookmarkChild[];
   dateAdded: number;
-  id: number;
+  id: string;
   title?: string;
+  index?: number;
 }
 
 const filterBookmarks = (data: any) => {
