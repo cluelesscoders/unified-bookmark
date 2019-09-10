@@ -19,7 +19,6 @@ export class App extends Component {
     return (
       <BookmarkProvider intialState={this.state}>
         <div className="App">
-          <p>Testing REACT APP</p>
           <ErrorBoundary>
             {this.state.bookmarks && (
               <div>

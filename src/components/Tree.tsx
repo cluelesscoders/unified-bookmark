@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import React from 'react';
 import { useBookmark } from '../context/bookmark-context';
-import TreeNode from './TreeNode';
+import TreeSideBar from './TreeSideBar';
 
 const useStyles = makeStyles({
   root: {
@@ -22,9 +22,7 @@ const Tree = () => {
         {bookmarks &&
           bookmarks.map((treeNode: any, treeNodeIndex: number) => (
             <div key={treeNodeIndex}>
-              {treeNode.map((node: any) => (
-                <TreeNode key={node.id} node={node} />
-              ))}
+              <TreeSideBar treeNode={treeNode} />
             </div>
           ))}
       </TreeView>
