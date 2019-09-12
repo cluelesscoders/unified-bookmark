@@ -1,4 +1,3 @@
-import TreeItem from '@material-ui/lab/TreeItem';
 import React from 'react';
 import TreeParent from './TreeParent';
 
@@ -7,13 +6,18 @@ const TreeSideBar = (props: any) => {
 
   return (
     <>
-      {treeNode.map((node: any) => {
-        if (node.children.length > 0) {
-          return <TreeParent key={node.id} node={node} />;
-        } else {
-          return <TreeItem nodeId={node.id} label={node.title} />;
-        }
-      })}
+      {treeNode &&
+        treeNode.map((node: any) => {
+          if (node.children.length > 0) {
+            return (
+              <div key={node.id} className="tree-root-element">
+                <TreeParent node={node} />
+              </div>
+            );
+          } else {
+            return null;
+          }
+        })}
     </>
   );
 };
