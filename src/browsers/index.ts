@@ -5,6 +5,7 @@ export interface Browser {
   getBookmarkTree(): [];
   parseBookmarks: any;
   filterBookmarks: any;
+  getBookMarkNodeData: any;
 }
 
 let browser: Browser = {} as any;

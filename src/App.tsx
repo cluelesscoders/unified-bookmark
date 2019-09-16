@@ -19,7 +19,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import SideBar from './components/SideBar';
 import { BookmarkProvider } from './context/bookmark-context';
 
-const drawerWidth = 500;
+const drawerWidth = 350;
 
 const styles = (theme: Theme) => ({
   root: {
@@ -51,7 +51,13 @@ const styles = (theme: Theme) => ({
 class App extends Component {
   public state: any = {
     bookmarks: [],
+    nodeData: null,
   };
+
+  public constructor(props: any) {
+    super(props);
+    this.handleNodeClick = this.handleNodeClick.bind(this);
+  }
 
   public async componentDidMount() {
     let data = await browser.getBookmarkTree();
@@ -59,6 +65,13 @@ class App extends Component {
 
     this.setState({ bookmarks: data });
   }
+
+  public handleNodeClick(event: any) {
+    event.event.preventDefault();
+    const data = browser.getBookMarkNodeData(event.node);
+    this.setState({ nodeData: data });
+  }
+
   public render() {
     const { classes }: any = this.props;
     return (
@@ -95,13 +108,20 @@ class App extends Component {
                     )}
                   </List>
                   <Divider />
-                  <SideBar />
+                  <SideBar handleClick={this.handleNodeClick} />
                 </>
               </Drawer>
             </nav>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <p>testing</p>
+              {this.state.nodeData && // TODO: create component to display
+                this.state.nodeData.map((item: any) => (
+                  <p key={item.id}>
+                    <a href={item.url} target="_blank">
+                      {item.title}
+                    </a>
+                  </p>
+                ))}
             </main>
           </ErrorBoundary>
         </div>

@@ -39,6 +39,12 @@ const filterBookmarks = (data: any) => {
   return result;
 };
 
+const getBookMarkNodeData = (node: any) => {
+  return (
+    node && node.children && node.children.filter((item: any) => !item.children)
+  );
+};
+
 // const getAllBookmarkElement
 // const getAllBookmarkParentNode
 // const getBookmarkTree
@@ -59,4 +65,4 @@ const getBookmarkTree = () => {
   });
 };
 
-export { getBookmarkTree, filterBookmarks };
+export { getBookmarkTree, filterBookmarks, getBookMarkNodeData };

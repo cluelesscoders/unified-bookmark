@@ -1,16 +1,14 @@
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import Folder from '@material-ui/icons/Folder';
 import React from 'react';
 import StyledTreeItem from './StyledTreeItem';
 
 const TreeParent = (props: any) => {
-  const { node } = props;
+  const { node, handleClick } = props;
 
-  const handleClick = (event: any) => {
-    const element = event.target.parentNode.parentNode.parentNode.parentNode;
-    const parentId = element.getAttribute('data-parentid');
-    const nodeId = element.getAttribute('data-nodeid');
-    // tslint:disable-next-line: no-console
-    console.log({ nodeId, parentId });
+  const handleElementClick = (event: any) => {
+    event.preventDefault();
+
+    handleClick({ event, node });
   };
 
   return (
@@ -18,18 +16,18 @@ const TreeParent = (props: any) => {
       key={node.id}
       nodeId={node.id}
       labelText={node.title}
-      labelIcon={SupervisorAccountIcon}
+      labelIcon={Folder}
       labelInfo={node.children.length}
       color="#1a73e8"
       bgColor="#e8f0fe"
       data-parentid={node.parentId}
       data-nodeid={node.id}
-      onClick={handleClick}
+      onClick={handleElementClick}
     >
       {node.children
         .filter((child: any) => child.children)
         .map((child: any) => (
-          <TreeParent node={child} key={child.id} />
+          <TreeParent node={child} key={child.id} handleClick={handleClick} />
         ))}
     </StyledTreeItem>
   );

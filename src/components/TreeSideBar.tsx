@@ -11,7 +11,7 @@ const TreeSideBar = (props: any) => {
           if (node.children.length > 0) {
             return (
               <div key={node.id} className="tree-root-element">
-                <TreeParent node={node} />
+                <TreeParent node={node} handleClick={props.handleClick} />
               </div>
             );
           } else {

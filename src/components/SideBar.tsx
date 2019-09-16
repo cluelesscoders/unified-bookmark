@@ -25,7 +25,7 @@ const useStyles = makeStyles(
   })
 );
 
-export default function SideBar() {
+export default function SideBar(props: any) {
   const classes = useStyles();
   const { bookmarks }: any = useBookmark();
 
@@ -38,7 +38,11 @@ export default function SideBar() {
     >
       {bookmarks &&
         bookmarks.map((treeNode: any, treeNodeIndex: number) => (
-          <TreeSideBar treeNode={treeNode} key={treeNodeIndex} />
+          <TreeSideBar
+            treeNode={treeNode}
+            key={treeNodeIndex}
+            handleClick={props.handleClick}
+          />
         ))}
     </TreeView>
   );
