@@ -13,7 +13,7 @@
     "es6-error": "^4.1.1",
     "human-format": "^0.10.1",
     "immer": "^3.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mobx": "^5.13.0",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.1.3",
